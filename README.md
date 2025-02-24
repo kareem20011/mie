@@ -1,3 +1,6 @@
-create database using migration
+# Laravel task 1
 
-products { title, desc, price, image [ nullable, string ] }
+-   create database using migration
+-   products { title, desc, price, image [ nullable, string ] }
+
+<!-- ################################################################################################## -->
