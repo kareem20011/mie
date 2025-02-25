@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -10,12 +13,10 @@ class ProductController extends Controller
      * Display a listing of the resource.
      */
 
-
-    //  php artisan make:controller ProductController -r
-    
     public function index()
     {
-        return view('products.index');
+        $data = Product::all();
+        return view('products.index', compact('data'));
     }
 
     /**
@@ -23,15 +24,17 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('products.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        //
+        Product::create($request->all());
+
+        return redirect()->back();
     }
 
     /**
@@ -47,7 +50,8 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Product::find($id);
+        return view('products.edit', compact('data'));
     }
 
     /**
@@ -55,7 +59,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = Product::find($id);
+
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'price' => 'required|max:255',
+            'desc' => 'required|max:255',
+            'image' => 'nullable'
+        ]);
+
+        $data->update($validated);
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -63,6 +78,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+        return back();
     }
 }

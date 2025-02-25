@@ -97,19 +97,20 @@
 
     <div class="container-fluid">
         <div class="row">
+
             <!-- Side bar -->
             <nav id="sidebarMenu" class="col-md-3 col-lg-3 d-md-block sidebar collapse">
                 <div class="position-sticky py-4 px-3 sidebar-sticky">
                     <ul class="nav flex-column h-100">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('home') }}">
+                            <a class="nav-link {{ Route::is('home') ? 'active' : '' }}" aria-current="page" href="{{ route('home') }}">
                                 <i class="bi-house-fill me-2"></i>
                                 Home
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{ route('products.index') }}">
+                            <a class="nav-link {{ Route::is('products.*') ? 'active' : '' }}" aria-current="page" href="{{ route('products.index') }}">
                                 <i class="bi-house-fill me-2"></i>
                                 Products
                             </a>
