@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.layout')
 @section('contents')
 
 <!-- php artisan make:request StoreProductRequest -->

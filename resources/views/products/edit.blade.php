@@ -1,11 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.layout')
 @section('contents')
 
-<!-- php artisan make:request StoreProductRequest -->
-
-
 <div class="title-group mb-3">
-    <h1 class="h2 mb-0">create products</h1>
+    <h1 class="h2 mb-0">edit product</h1>
 </div>
 
 
