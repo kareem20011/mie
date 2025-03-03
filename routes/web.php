@@ -1,21 +1,14 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Category;
+use App\Models\Color;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 
 // Home
 Route::get('/', function () {
@@ -33,6 +26,9 @@ Route::middleware('auth')->group(function () {
     // Products
     Route::resource('products', ProductController::class);
 
+    // Categories
+    Route::resource('categories', CategoryController::class);
+
     // Users
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('users/create', [UserController::class, 'create'])->name('users.create');
@@ -48,3 +44,11 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+
+Route::get('/test', function(){
+
+    $data = Product::with('colors', 'user', 'category')->get();
+    
+    return $data;
+});

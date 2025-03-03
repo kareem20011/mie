@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +25,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $data = Category::all();
+        return view('products.create', compact('data'));
     }
 
     /**
@@ -32,7 +34,9 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        Product::create($request->all());
+        $data = $request->all();
+        $data['user_id'] = auth()->user()->id;
+        Product::create($data);
 
         return redirect()->back();
     }

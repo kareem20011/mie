@@ -1,9 +1,5 @@
 <?php
 
-// php artisan make:model Product -m
-// php artisan migrate
-
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,6 +18,12 @@ return new class extends Migration
             $table->float('price');
             $table->string('image')->nullable();
             $table->timestamps();
+
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('cat_id');
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('cat_id')->references('id')->on('categories');
         });
     }
 

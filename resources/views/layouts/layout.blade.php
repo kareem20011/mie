@@ -134,6 +134,13 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link {{ Route::is('categories.*') ? 'active' : '' }}" aria-current="page" href="{{ route('categories.index') }}">
+                                <i class="bi-house-fill me-2"></i>
+                                categories
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}" aria-current="page" href="{{ route('dashboard') }}">
                                 <i class="bi-house-fill me-2"></i>
                                 dashboard

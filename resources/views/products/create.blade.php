@@ -35,6 +35,12 @@
         @enderror
     </div>
 
+    <select name="cat_id" class="form-control mb-5">
+        @foreach($data as $row)
+        <option value="{{ $row->id }}">{{ $row->name }}</option>
+        @endforeach
+    </select>
+
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 

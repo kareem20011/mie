@@ -25,6 +25,7 @@ class StoreProductRequest extends FormRequest
             'title' => 'required|max:255',
             'price' => 'required|max:255',
             'desc' => 'required|max:255',
+            'cat_id' => 'required|max:255',
             'image' => 'nullable'
         ];
     }
