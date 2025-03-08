@@ -141,6 +141,13 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link {{ Route::is('colors.*') ? 'active' : '' }}" aria-current="page" href="{{ route('colors.index') }}">
+                                <i class="bi-house-fill me-2"></i>
+                                colors
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}" aria-current="page" href="{{ route('dashboard') }}">
                                 <i class="bi-house-fill me-2"></i>
                                 dashboard

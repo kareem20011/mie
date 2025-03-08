@@ -1,13 +1,10 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Models\Category;
-use App\Models\Color;
-use App\Models\Product;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 // Home
@@ -37,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::put('users/update/{id}', [UserController::class, 'update'])->name('users.update');
     Route::delete('users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
+    Route::resource('colors', ColorController::class);
+
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -44,11 +43,3 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
-
-
-Route::get('/test', function(){
-
-    $data = Product::with('colors', 'user', 'category')->get();
-    
-    return $data;
-});

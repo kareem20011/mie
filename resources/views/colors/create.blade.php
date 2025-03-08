@@ -3,11 +3,11 @@
 
 
 <div class="title-group mb-3">
-    <h1 class="h2 mb-0">create products</h1>
+    <h1 class="h2 mb-0">create colors</h1>
 </div>
 
 
-<form action="{{ route( 'categories.store' ) }}" method="post">
+<form action="{{ route( 'colors.store' ) }}" method="post">
     @csrf
     <div class="mb-3">
         <label for="name" class="form-label">Enter name</label>

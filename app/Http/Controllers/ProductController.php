@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +17,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $data = Product::all();
+        $data = Product::with('user', 'category', 'colors')->get();
         return view('products.index', compact('data'));
     }
 
@@ -25,8 +26,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $data = Category::all();
-        return view('products.create', compact('data'));
+        $cats = Category::all();
+        $colors = Color::all();
+        return view('products.create', compact('cats', 'colors'));
     }
 
     /**
@@ -34,9 +36,12 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
+        // return $request;
         $data = $request->all();
         $data['user_id'] = auth()->user()->id;
-        Product::create($data);
+        $product = Product::create($data);
+
+        $product->colors()->sync($request->color_id);
 
         return redirect()->back();
     }
@@ -54,8 +59,11 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Product::find($id);
-        return view('products.edit', compact('data'));
+        $data = Product::with('category', 'colors')->find($id);
+        $cats = Category::all();
+        $colors = Color::all();
+
+        return view('products.edit', compact('data', 'cats', 'colors'));
     }
 
     /**
@@ -74,6 +82,8 @@ class ProductController extends Controller
 
         $data->update($validated);
 
+        $data->colors()->sync($request->color_id);
+
         return redirect()->route('products.index');
     }
 
@@ -82,7 +92,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        $product = Product::find($id);
+        $product = Product::with('colors')->find($id);
+        $product->colors()->detach($product->colors);
         $product->delete();
         return back();
     }

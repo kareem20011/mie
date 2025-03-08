@@ -17,6 +17,9 @@
       <th scope="col">title</th>
       <th scope="col">description</th>
       <th scope="col">price</th>
+      <th scope="col">category</th>
+      <th scope="col">colors</th>
+      <th scope="col">creator</th>
       <th scope="col">actions</th>
     </tr>
   </thead>
@@ -27,6 +30,15 @@
       <td>{{ $val->title }}</td>
       <td>{{ $val->desc }}</td>
       <td>{{ $val->price }}</td>
+      <td>{{ $val->category->name }}</td>
+      <td>
+        <ul>
+          @foreach($val->colors as $color)
+          <li>{{$color->name}}</li>
+          @endforeach
+        </ul>
+      </td>
+      <td>{{ $val->user->name }}</td>
       <td class="d-flex">
         <a href="{{ route('products.edit', $val->id) }}" class="btn btn-info btn-sm">Edit</a>
         <form action="{{ route( 'products.destroy', $val->id ) }}" method="post">

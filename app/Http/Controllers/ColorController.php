@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Color;
 use Illuminate\Http\Request;
 
 class ColorController extends Controller
@@ -11,7 +12,8 @@ class ColorController extends Controller
      */
     public function index()
     {
-        //
+        $data = Color::all();
+        return view('colors.index', compact('data'));
     }
 
     /**
@@ -19,7 +21,7 @@ class ColorController extends Controller
      */
     public function create()
     {
-        //
+        return view('colors.create');
     }
 
     /**
@@ -27,7 +29,11 @@ class ColorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Color::create([
+            'name' => $request->name
+        ]);
+
+        return redirect()->route('colors.index');
     }
 
     /**
@@ -43,7 +49,8 @@ class ColorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Color::find($id);
+        return view('colors.edit', compact('data'));
     }
 
     /**
@@ -51,7 +58,12 @@ class ColorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = Color::find($id);
+        $data->update([
+            'name' => $request->name
+        ]);
+
+        return redirect()->route('colors.index');
     }
 
     /**
@@ -59,6 +71,8 @@ class ColorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Color::find($id);
+        $data->delete();
+        return redirect()->route('colors.index');
     }
 }

@@ -7,8 +7,6 @@
 <div class="title-group mb-3">
     <h1 class="h2 mb-0">create products</h1>
 </div>
-
-
 <form action="{{ route( 'products.store' ) }}" method="post">
     @csrf
     <div class="mb-3">
@@ -35,8 +33,16 @@
         @enderror
     </div>
 
-    <select name="cat_id" class="form-control mb-5">
-        @foreach($data as $row)
+    <label for="cat_id" class="form-label">Enter category</label>
+    <select name="cat_id" id="cat_id" class="form-control mb-5">
+        @foreach($cats as $row)
+        <option value="{{ $row->id }}">{{ $row->name }}</option>
+        @endforeach
+    </select>
+
+    <label for="color_id" class="form-label">Enter color</label>
+    <select name="color_id[]" id="color_id" class="form-control mb-5" multiple>
+        @foreach($colors as $row)
         <option value="{{ $row->id }}">{{ $row->name }}</option>
         @endforeach
     </select>
